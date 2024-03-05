@@ -6,98 +6,61 @@
 //
 
 import Foundation
+import Alamofire
 import Combine
-
-import Foundation
 
 class PersonService {
     
-    private let urlSession: URLSession
-    
-    init(urlSession: URLSession = .shared) {
-        self.urlSession = urlSession
-    }
-    
     func fetchPeople() -> AnyPublisher<[Person], Error> {
-        guard let url = URL(string: "https://poc-restapi.onrender.com/item") else {
-            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
-        }
+        let url = "https://poc-restapi.onrender.com/item"
         
-        return URLSession.shared.dataTaskPublisher(for: url)
-            .map(\.data)
-            .decode(type: [Person].self, decoder: JSONDecoder())
+        return AF.request(url)
+            .publishDecodable(type: [Person].self)
+            .value()
+            .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
     
     func addPerson(nome: String) -> AnyPublisher<Bool, Error> {
-        guard let url = URL(string: "https://poc-restapi.onrender.com/item") else {
-            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
-        }
+        let url = "https://poc-restapi.onrender.com/item"
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let parameters = ["nome": nome]
         
-        let newPerson = ["nome": nome]
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: newPerson) else {
-            return Fail(error: NSError(domain: "SerializationError", code: 0, userInfo: nil)).eraseToAnyPublisher()
-        }
-        
-        request.httpBody = jsonData
-        
-        return urlSession.dataTaskPublisher(for: request)
-            .tryMap { data, response in
-                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                    throw URLError(.badServerResponse)
-                }
+        return AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .validate(statusCode: 200..<300)
+            .publishData()
+            .tryMap { response in
                 return true
             }
+            .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
     
     func deletePerson(id: String) -> AnyPublisher<Bool, Error> {
-        guard let url = URL(string: "https://poc-restapi.onrender.com/item/\(id)") else {
-            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
-        }
+        let url = "https://poc-restapi.onrender.com/item/\(id)"
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
-        
-        return urlSession.dataTaskPublisher(for: request)
-            .tryMap { data, response in
-                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                    throw URLError(.badServerResponse)
-                }
+        return AF.request(url, method: .delete)
+            .validate(statusCode: 200..<300)
+            .publishData()
+            .tryMap { response in
                 return true
             }
+            .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
     
     func editPersonName(id: String, newName: String) -> AnyPublisher<Bool, Error> {
-        guard let url = URL(string: "https://poc-restapi.onrender.com/item/\(id)") else {
-            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let updatedPerson = ["nome": newName]
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: updatedPerson) else {
-            return Fail(error: NSError(domain: "SerializationError", code: 0, userInfo: nil)).eraseToAnyPublisher()
-        }
-
-        request.httpBody = jsonData
-
-        return urlSession.dataTaskPublisher(for: request)
-            .tryMap { data, response in
-                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                    throw URLError(.badServerResponse)
-                }
+        let url = "https://poc-restapi.onrender.com/item/\(id)"
+        
+        let parameters = ["nome": newName]
+        
+        return AF.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default)
+            .validate(statusCode: 200..<300)
+            .publishData()
+            .tryMap { response in
                 return true
             }
+            .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
 }
-
-
