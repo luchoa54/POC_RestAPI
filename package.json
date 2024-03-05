@@ -11,7 +11,11 @@
   "author": "Luciano Uchoa",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.18.3",
+    "mongodb": "^6.4.0"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.0"
   }
 }
