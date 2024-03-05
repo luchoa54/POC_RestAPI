@@ -85,11 +85,9 @@ async function main() {
 
     app.delete('/item/:id', async function (req, res) {
         const id = req.params.id
-    
-        await collection.deleteOne( {_id: new ObjectId(id)})
-    
-        res.send("Item deletado com sucesso!")
-      })
+        const resultMessage = await crudModel.deleteItemById(id)
+        res.send(resultMessage)
+    })
 
     app.listen(3000)
 }
