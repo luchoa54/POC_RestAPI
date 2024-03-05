@@ -1,4 +1,4 @@
-**# POC-API-Rest-Swift**
+## POC-API-Rest-Swift
 
 Este repositório contém uma prova de conceito (PoC) abrangente demonstrando a integração eficiente de uma API Rest em uma aplicação iOS usando a linguagem Swift. A PoC destaca as melhores práticas e padrões de desenvolvimento para garantir uma comunicação segura, eficiente e escalável com serviços web por meio de chamadas HTTP.
 
