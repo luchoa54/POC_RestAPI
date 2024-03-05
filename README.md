@@ -5,30 +5,24 @@ Este repositório contém uma prova de conceito (PoC) abrangente demonstrando a 
 ## Recursos Principais
 
 1. **Estrutura Modular**
-   - Arquitetura Swift moderna (por exemplo, MVC, MVVM) para promover a modularidade e manutenibilidade do código.
+   - Arquitetura Swift moderna (MVVM) para promover a modularidade e manutenibilidade do código.
 
-2. **Gerenciamento de Dependências**
-   - Uso de ferramentas populares, como CocoaPods ou Swift Package Manager, para gerenciar dependências de forma eficiente.
-
-3. **Configuração da API**
+2. **Configuração da API**
    - Implementação de um módulo de configuração flexível para definir facilmente as URLs base, cabeçalhos e outros parâmetros relacionados à API.
 
-4. **Chamadas HTTP**
+3. **Chamadas HTTP**
    - Utilização de bibliotecas populares, como Alamofire, para realizar chamadas HTTP assíncronas, tratamento de erros e gerenciamento de sessões.
 
-5. **Modelagem de Dados**
+4. **Modelagem de Dados**
    - Estruturação clara e tipada dos dados da API usando Swift Codable para facilitar a serialização e desserialização de objetos JSON.
 
-6. **Tratamento de Erros**
+5. **Tratamento de Erros**
    - Implementação de estratégias robustas para lidar com erros de rede, erros HTTP e outras falhas potenciais na comunicação com a API.
 
-7. **Segurança**
-   - Demonstração de práticas seguras, como autenticação com tokens, para garantir a proteção dos dados durante a transmissão.
-
-8. **Feedback do Usuário**
+6. **Feedback do Usuário**
    - Incorporação de elementos de interface do usuário para fornecer feedback visual ao usuário durante o processamento de solicitações API, garantindo uma experiência do usuário mais suave.
 
-9. **Documentação Adequada**
+7. **Documentação Adequada**
    - Inclusão de documentação clara e concisa, fornecendo informações sobre a estrutura do código, fluxo de dados e instruções de configuração.
 
 ## Como Usar
@@ -38,17 +32,25 @@ Este repositório contém uma prova de conceito (PoC) abrangente demonstrando a 
    git clone https://github.com/seu-usuario/POC-API-Rest-Swift.git
    ```
 
-2. Configure as dependências usando o gerenciador de dependências escolhido.
-
-   Exemplo com CocoaPods:
+2. Navegue até a pasta RestAPI.
    ```bash
-   cd POC-API-Rest-Swift
-   pod install
+   cd POC-API-Rest-Swift/RestAPI
    ```
 
-3. Explore os diferentes módulos, como configuração da API, chamadas HTTP e tratamento de erros.
+3. Instale as dependências do projeto.
+   ```bash
+   npm install
+   ```
 
-4. Adapte o código conforme necessário para atender aos requisitos específicos da sua aplicação.
+4. Inicie o servidor.
+   ```bash
+   npm start
+   ```
+
+5. Abra e execute o projeto dentro da pasta Xcode Project.
+
+6. Execute o projeto no Xcode e familiarize-se com as funcionalidades da API.
+
 
 ## Contribuições
 
