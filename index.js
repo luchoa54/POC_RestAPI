@@ -1,6 +1,6 @@
 require('dotenv').config()
 const express = require('express')
-const { MongoClient, ObjectID } = require('mongodb')
+const { MongoClient, ObjectId } = require('mongodb')
 
 class CRUDModel {
     constructor(collection) {
@@ -12,7 +12,7 @@ class CRUDModel {
     }
 
     async getItemById(id) {
-        return await this.collection.findOne({ _id: new ObjectID(id) })
+        return await this.collection.findOne({ _id: new ObjectId(id) })
     }
 
     async addItem(item) {
@@ -26,12 +26,12 @@ class CRUDModel {
     }
 
     async updateItemById(id, newItem) {
-        await this.collection.updateOne({ _id: new ObjectID(id) }, { $set: newItem })
+        await this.collection.updateOne({ _id: new ObjectId(id) }, { $set: newItem })
         return "Item atualizado com sucesso!"
     }
 
     async deleteItemById(id) {
-        await this.collection.deleteOne({ _id: new ObjectID(id) })
+        await this.collection.deleteOne({ _id: new ObjectId(id) })
         return "Item deletado com sucesso!"
     }
 }
